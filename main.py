@@ -100,10 +100,7 @@ def test(epoch):
           correct += (predicted == label).float().sum()
           total += len(predicted)
           progress.set_description("Test epoch: %d, CE: %.5f , Acc.: %.3f" % (epoch, loss_total.item(), (correct*100)/total))
-        # print("Example ")
 
-        # porcentaje = (count_true*100)/count_total
-        # print("Rank-1: ", round(porcentaje, 3))
        
     return test_loss
 
@@ -112,7 +109,7 @@ patience_counter = 0
 
 loss_Train = []
 loss_Test = []
-num_epochs = 1000
+num_epochs = 100
 
   
 for e in range(num_epochs):
@@ -135,7 +132,7 @@ for e in range(num_epochs):
 
       plt.title('Function loss')
       ax.legend()
-      fig.savefig(path_result + '/plot' + str(num_epochs+1) + '.png')
+      fig.savefig(path_result + '/plot' + str(e+1) + '.png')
 
       # Save loss an test values to plot comparison
       fichero = open(path_result + '/files_train.pckl', 'wb')
