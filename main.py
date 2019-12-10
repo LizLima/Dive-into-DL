@@ -26,7 +26,7 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
 ### Model
 model = convnet.Net().to(device)
 model.apply(convnet.Net.init_weights)
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.001)
 lossCE = torch.nn.CrossEntropyLoss()
 ################################################
 # TRAIN 
