@@ -15,7 +15,7 @@ class Net(nn.Module):
         self.fc2   = nn.Linear(in_features=120, out_features=84)
         self.fc3   = nn.Linear(in_features=84, out_features=10)
 
-        self.relu = nn.LeakyReLU(negative_slope=0.01)
+        self.relu = nn.LeakyReLU(negative_slope=0.2)
     def forward(self, input):
         x = self.relu(self.bn1(self.conv1(input)))
         x = self.avg1(x)
