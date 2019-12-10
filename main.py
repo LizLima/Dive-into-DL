@@ -75,15 +75,13 @@ def train(epoch):
 def test(epoch):
     model.eval()
     test_loss   = 0
-    image       = None
-    image_synt  = None
     correct = 0
     total = 0
     progress = tqdm(enumerate(testloader), desc="Test", total=len(testloader))
     with torch.no_grad():
-        count_total = 0
-        count_true  = 0
+
         for x in progress:
+
           data    = x[1]
           image   = data[0].to(device)
           label   = data[1].to(device)
@@ -127,18 +125,18 @@ for e in range(num_epochs):
       fig = plt.figure()
       x = np.arange(len(loss_Train))
       ax = plt.subplot(111)
-      ax.plot(x, np.array(loss_Train), 'mediumvioletred', label='Generator Training')
-      ax.plot(x, np.array(loss_Test), 'pink', label='Generator Test')
+      ax.plot(x, np.array(loss_Train), 'mediumvioletred', label='Train')
+      ax.plot(x, np.array(loss_Test), 'pink', label='Test')
 
       plt.title('Function loss')
       ax.legend()
       fig.savefig(path_result + '/plot' + str(e+1) + '.png')
 
       # Save loss an test values to plot comparison
-      fichero = open(path_result + '/files_train.pckl', 'wb')
+      fichero = open(path_result + '/files_train' + str(e+1) + '.pckl', 'wb')
       pickle.dump(loss_Train, fichero)
       fichero.close()
-      fichero = open(path_result + '/files_test.pckl', 'wb')
+      fichero = open(path_result + '/files_test' + str(e+1) + '.pckl', 'wb')
       pickle.dump(loss_Test, fichero)
       fichero.close()
 
