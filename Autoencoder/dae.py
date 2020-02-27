@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torchvision
 import torch.nn.functional as F
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -6,7 +7,7 @@ from torchvision.datasets import MNIST
 from skimage.util import random_noise
 import matplotlib.pyplot as plt
 
-
+import numpy as np
 import torch
 
 latent_dims = 10
@@ -143,10 +144,10 @@ def test (autoencoder, test_dataloader):
             image_batch = image_batch
             noise_img = add_noise(image_batch, 'gaussian')
             # autoencoder reconstruction
-            image_batch_recon = autoencoder(noise_img.float())
+            image_batch_recon = autoencoder(noise_img.float().to(device))
 
             # reconstruction error
-            loss = F.mse_loss(image_batch_recon, image_batch)
+            loss = F.mse_loss(image_batch_recon, image_batch.to(device))
 
             test_loss_avg += loss.item()
             num_batches += 1
@@ -172,7 +173,7 @@ def visualise_output(images, model, noise_type, mean=0, var=0.05):
         images = images
         # add noise
         noise_img = add_noise(images, noise_type, mean, var)
-        images = model(noise_img.float())
+        images = model(noise_img.float().to(device))
         images = images.cpu()
         images = to_img(images)
 
